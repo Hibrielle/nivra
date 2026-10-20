@@ -1,13 +1,13 @@
 # Store submission materials
 
-Version: **1.0.0**, not yet published on the Chrome Web Store.
+Version: **1.0.0**, submitted for Chrome Web Store review and not yet published.
 
 ## Current submission
 
 - Item ID: `gojjgimfmdjnlakfkngjbmojmpmaiick`
-- Dashboard status: **Draft**. The ZIP was uploaded on October 20, 2026. English and Simplified Chinese listings, six screenshots, the icon, promotional tile, privacy fields, and reviewer instructions are saved. It has not been submitted for review.
-- The dashboard's remaining requirement is confirmation of the three data-use certifications. Distribution is free, public, and available in all regions.
-- Uploaded ZIP SHA-256: `9990b88b3d1b9c4f17846088684138e4cce25d0f49d00b592559d21c6a47c8b3`
+- Dashboard status: **Pending Review**, confirmed on October 20, 2026 (Asia/Shanghai). The approved English and Chinese copy, localized screenshots, icon, promotional tile, privacy fields, and reviewer instructions were submitted.
+- Automatic publication after approval is enabled. Distribution is free, public, and available in all regions. The dashboard noted that broad host permissions may require a longer review.
+- Uploaded ZIP SHA-256: `3c80494f44a4e965cdb7fff360f8da0bea3866da2aac916192a6bf7aa448685b`
 - The public website and privacy policy were checked without authentication and returned HTTP 200.
 
 ## Materials
@@ -29,6 +29,16 @@ Version: **1.0.0**, not yet published on the Chrome Web Store.
 | Source and support                         | https://github.com/Hibrielle/nivra                           |
 
 Screenshots are unmodified 1280 × 800 captures of the running extension with local sample downloads. The report chart comes from a real throttled local download. They contain no personal browser records, credentials, or user account UI. The promotional tile is rendered from `promo.html` using Nivra's own vector mark.
+
+## Store languages
+
+| Dashboard locale | Description | Screenshots |
+| --- | --- | --- |
+| English (`en`, default) | `listing-en.md` | `assets/en/`, uploaded as global fallback screenshots |
+| Chinese, China (`zh-CN`) | `listing-zh-CN.md` | `assets/zh-CN/`, uploaded as localized screenshots |
+| Chinese, Taiwan (`zh-TW`) | The same Simplified Chinese description | The same `assets/zh-CN/` screenshots, uploaded separately |
+
+The `zh-TW` package locale is an alias for the current Simplified Chinese UI, not a separate Traditional Chinese translation. Its listing explicitly identifies the supported UI languages as English and Simplified Chinese. The icon and small promotional tile contain only the Nivra mark and brand name, so they are shared across all locales.
 
 To regenerate: run `npm run test:i18n` against the built extension, then `node scripts/build-store-assets.mjs`. Set `CHROME_EXECUTABLE` if Playwright's default Chromium is not installed.
 

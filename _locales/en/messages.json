@@ -1,7 +1,7 @@
 {
   "extensionName": { "message": "Nivra Download Manager" },
   "extensionDescription": {
-    "message": "Manage downloads, organize files automatically, and view speed charts and connection details."
+    "message": "Manage downloads, organize files into folders, and download links in batches."
   },
   "extensionActionTitle": { "message": "Nivra · Downloads" },
   "openManager": { "message": "Open download manager" },

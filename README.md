@@ -4,7 +4,7 @@ A Chrome download manager with automatic file organization, resource discovery, 
 
 [简体中文](README.zh-CN.md) · [Privacy policy](https://hibrielle.github.io/nivra/privacy.html) · [Changelog](CHANGELOG.md) · [Validation notes](PARITY.md)
 
-Version **1.0.0** is being prepared for the Chrome Web Store. It has not been published or approved by the store yet. Requires **Chrome 127+**. No account is required for core features.
+Version **1.0.0** was submitted to the Chrome Web Store on October 20, 2026 and is awaiting review. It will be published automatically after approval. Requires **Chrome 127+**. No account is required for core features.
 
 ## What it does
 
