@@ -2,6 +2,16 @@
 
 Version: **1.0.0**, not yet published on the Chrome Web Store.
 
+## Current submission
+
+- Item ID: `gojjgimfmdjnlakfkngjbmojmpmaiick`
+- Dashboard status: **Draft**. The ZIP was uploaded on October 20, 2026. English and Simplified Chinese listings, six screenshots, the icon, promotional tile, privacy fields, and reviewer instructions are saved. It has not been submitted for review.
+- The dashboard's remaining requirement is confirmation of the three data-use certifications. Distribution is free, public, and available in all regions.
+- Uploaded ZIP SHA-256: `9990b88b3d1b9c4f17846088684138e4cce25d0f49d00b592559d21c6a47c8b3`
+- The public website and privacy policy were checked without authentication and returned HTTP 200.
+
+## Materials
+
 | Material                                   | Location                                                     |
 | ------------------------------------------ | ------------------------------------------------------------ |
 | Extension ZIP                              | `../dist/nivra-1.0.0.zip`, produced by `npm run pack`        |

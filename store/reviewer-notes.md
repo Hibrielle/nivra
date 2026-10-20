@@ -1,5 +1,11 @@
 # Reviewer test instructions
 
+## Dashboard field (500-character limit)
+
+No login or credentials required. Open the toolbar popup > Start setup > Save and download to download bundled nivra-test.txt. Check tasks in the manager; try Organization rules, Find resources on an HTTP(S) page, and Download report. Settings changes language/theme. External clients are optional and use the reviewer's own service. Full steps: https://github.com/Hibrielle/nivra/blob/main/store/reviewer-notes.md
+
+## Full instructions
+
 Core functionality needs no account, login, paid service, or credentials. The UI supports English and Simplified Chinese.
 
 1. Open Nivra's toolbar popup, choose **Start setup**, select type/month/day organization, and use **Save and download**. This downloads the bundled `nivra-test.txt` and shows the resulting task. The location is a relative path under Chrome's own downloads folder.
