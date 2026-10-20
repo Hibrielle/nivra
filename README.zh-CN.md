@@ -6,6 +6,17 @@
 
 首发版本 **1.0.0** 已于 2026 年 10 月 20 日提交 Chrome 应用商店审核，通过后自动公开发布，目前尚未上架。[版本记录](CHANGELOG.md) · [能力与测试证据](PARITY.md)
 
+## 界面预览
+
+在管理页查看下载、搜索记录、找到已保存的文件。点击截图可查看原图。
+
+[![Nivra 下载管理页：文件分类、下载任务和保存位置](store/assets/zh-CN/1-manager.png)](store/assets/zh-CN/1-manager.png)
+
+| 自动归档 | 下载报告 |
+| --- | --- |
+| 按文件类型、月份或日期整理，设置时就能看到文件会存到哪里。 | 查看下载速度曲线、连接信息和任务事件。 |
+| [![Nivra 首次设置：文件类型和时间分类选项，以及保存目录预览](store/assets/zh-CN/2-setup.png)](store/assets/zh-CN/2-setup.png) | [![Nivra 下载报告：速度曲线和连接信息](store/assets/zh-CN/3-report.png)](store/assets/zh-CN/3-report.png) |
+
 ## 安装与更新
 
 1. 解压 `nivra-1.0.0.zip`，打开 `chrome://extensions`，开启「开发者模式」。

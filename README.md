@@ -6,6 +6,17 @@ A Chrome download manager with automatic file organization, resource discovery, 
 
 Version **1.0.0** was submitted to the Chrome Web Store on October 20, 2026 and is awaiting review. It will be published automatically after approval. Requires **Chrome 127+**. No account is required for core features.
 
+## Screenshots
+
+Manage downloads, search your history, and find saved files in one place. Click a screenshot to view it at full size.
+
+[![Nivra download manager showing file categories, download tasks, and save locations](store/assets/en/1-manager.png)](store/assets/en/1-manager.png)
+
+| Automatic file organization | Download reports |
+| --- | --- |
+| Choose file types, monthly or daily folders, and preview where files will be saved. | View download speed over time, connection details, and task events. |
+| [![Nivra setup with file type and date organization options and a folder preview](store/assets/en/2-setup.png)](store/assets/en/2-setup.png) | [![Nivra download report with a speed chart and connection details](store/assets/en/3-report.png)](store/assets/en/3-report.png) |
+
 ## What it does
 
 | Feature                        | What you get                                                                                                                              |
