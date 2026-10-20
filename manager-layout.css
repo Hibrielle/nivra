@@ -1,0 +1,1457 @@
+/* A task-first layout: commands, categories, list, and an always available inspector. */
+.manager-app {
+  --sidebar-width: 178px;
+  --topbar-height: 54px;
+  --input-height: 32px;
+  --selection-bg: #e9f2ff;
+  --selection-border: #c5ddff;
+  height: 100vh;
+  overflow: hidden;
+  font-size: 13px;
+}
+.manager-app[data-theme='dark'],
+[data-theme='dark'] .manager-app {
+  --selection-bg: #263951;
+  --selection-border: #416185;
+}
+.manager-app .app-shell {
+  height: 100vh;
+  min-height: 0;
+}
+.manager-app main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 0;
+}
+.manager-app .sidebar {
+  padding: 12px 8px 8px;
+}
+.manager-app .sidebar .brand {
+  padding: 0 8px;
+  margin: 0 0 18px;
+  gap: 8px;
+  font-size: 14px;
+  height: 34px;
+}
+.manager-app .brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+}
+.manager-app .brand-mark .icon {
+  width: 19px;
+  height: 19px;
+}
+.manager-app .brand-sub {
+  font-size: 10px;
+  margin-top: 2px;
+}
+.manager-app .section-label {
+  display: none;
+}
+.manager-app #navigation {
+  overflow-y: auto;
+  min-height: 0;
+}
+.manager-app .nav-item {
+  min-height: 31px;
+  padding: 6px 10px;
+  gap: 9px;
+  margin-bottom: 1px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.manager-app .nav-item > .icon {
+  width: 15px;
+  height: 15px;
+}
+.manager-app .nav-item.active {
+  color: #2460b7;
+  background: var(--selection-bg);
+  box-shadow: inset 3px 0 #437ece;
+}
+.manager-app[data-theme='dark'] .nav-item.active {
+  color: #a9ccff;
+}
+.manager-app .nav-child {
+  padding-left: 30px;
+  font-size: 12px;
+}
+.manager-app .nav-child .icon {
+  display: none;
+}
+.manager-app .nav-tools {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+.manager-app .sidebar-divider {
+  margin: 8px 6px;
+  height: 1px;
+  flex-shrink: 0;
+}
+.manager-app .sidebar-bottom {
+  padding-top: 10px;
+  flex-shrink: 0;
+}
+.manager-app .automation-panel {
+  padding: 8px;
+  border-radius: 7px;
+  font-size: 11px;
+}
+.manager-app .automation-panel p {
+  display: none;
+}
+.manager-app .sidebar-footer {
+  padding: 8px 3px 0;
+  font-size: 10px;
+}
+.manager-app .sidebar-footer .icon {
+  width: 13px;
+  height: 13px;
+}
+.manager-app .topbar {
+  flex-shrink: 0;
+  padding: 0 18px;
+  gap: 14px;
+}
+.manager-title {
+  min-width: 100px;
+  flex: 1;
+}
+.manager-app .topbar h1 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.manager-app .topbar .search {
+  width: min(330px, 35%);
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 6px;
+  margin: 0;
+  background: var(--bg-subtle);
+}
+.manager-app .topbar .search input {
+  height: 30px;
+  font-size: 12px;
+  padding: 0;
+}
+.manager-app .topbar .search .icon {
+  width: 15px;
+  height: 15px;
+}
+.manager-app .topbar .version {
+  font-size: 10px;
+}
+.manager-app .button {
+  border-radius: 5px;
+  min-height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  gap: 6px;
+}
+.manager-app .icon-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+}
+.manager-app .icon {
+  width: 17px;
+  height: 17px;
+}
+.manager-app .main-content {
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.manager-app .page-heading {
+  margin: 0;
+  padding: 14px 20px 0;
+  flex-shrink: 0;
+}
+.manager-app .page-heading p {
+  font-size: 12px;
+  margin: 0;
+}
+.manager-app .list-toolbar {
+  margin: 0;
+  padding: 10px 20px;
+  min-height: 32px;
+  flex-shrink: 0;
+}
+.manager-app #downloadsView {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.manager-app .download-controls {
+  display: block;
+  margin: 0;
+  flex-shrink: 0;
+}
+.task-toolbar {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-base);
+  min-height: 49px;
+}
+.task-toolbar .button:not(.toolbar-new) {
+  border-color: transparent;
+  background: transparent;
+}
+.task-toolbar .button:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-default);
+}
+.task-toolbar .button:disabled {
+  opacity: 0.32;
+}
+.toolbar-new {
+  color: #20609e !important;
+  background: var(--selection-bg) !important;
+  border-color: var(--selection-border) !important;
+}
+.toolbar-divider {
+  height: 22px;
+  width: 1px;
+  background: var(--border-default);
+  margin: 0 6px;
+}
+.task-filterbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 6px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-subtle);
+  height: 38px;
+  font-size: 11px;
+}
+.task-filterbar .select-all {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+  min-width: 112px;
+}
+.task-filterbar input[type='checkbox'],
+.task-row > input {
+  appearance: auto;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  padding: 0;
+  margin: 0;
+  accent-color: #4278bb;
+  border-radius: 2px;
+}
+.manager-app .task-filterbar select {
+  padding: 2px 20px 2px 6px;
+  min-width: 0;
+  width: auto;
+  height: 25px;
+  font-size: 11px;
+  border-color: transparent;
+  background-color: transparent;
+  border-radius: 4px;
+}
+.manager-app .task-filterbar .text-button {
+  padding: 3px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.task-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+#downloadList {
+  overflow-y: auto;
+  min-width: 0;
+  outline: none;
+}
+.task-list {
+  display: flex;
+  flex-direction: column;
+}
+.task-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  min-height: 83px;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: default;
+  min-width: 0;
+  outline: none;
+}
+.task-row:hover {
+  background: var(--bg-subtle);
+}
+.task-row.selected {
+  background: var(--selection-bg);
+  box-shadow: inset 3px 0 #437ece;
+}
+.task-row:focus-visible {
+  outline: 1px solid #6695d4;
+  outline-offset: -1px;
+}
+.task-copy {
+  flex: 1;
+  min-width: 0;
+}
+.task-name-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.task-copy .file-name {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-source {
+  color: var(--text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px 0;
+  line-height: 1.5;
+}
+.task-folder {
+  color: var(--text-secondary);
+}
+.task-metrics {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.task-metrics .task-speed {
+  color: #3776b9;
+}
+.task-metrics.paused .task-speed {
+  color: var(--text-muted);
+}
+@property --task-progress {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+.task-ring {
+  --ring-color: #4e91cf;
+  position: relative;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(var(--ring-color) var(--task-progress), var(--border-subtle) 0);
+  padding: 3px;
+  transition: --task-progress var(--dur-base) var(--ease);
+}
+.task-ring > .task-file-glyph {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-base);
+  color: var(--text-secondary);
+}
+.task-ring .icon {
+  width: 20px;
+  height: 20px;
+}
+.task-ring:not(.in_progress) {
+  padding: 2px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-subtle);
+}
+.task-ring:not(.in_progress) > .task-file-glyph {
+  background: transparent;
+}
+.task-ring.paused {
+  --ring-color: #a5a5a5;
+}
+.task-status-badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--bg-base);
+  border-radius: 50%;
+  background: var(--status-success);
+  color: var(--bg-base);
+}
+.task-ring .task-status-badge .icon {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.4;
+}
+.task-ring.interrupted .task-status-badge {
+  background: var(--status-error);
+}
+.task-ring.paused .task-status-badge {
+  background: var(--text-secondary);
+  color: var(--bg-base);
+}
+.task-ring.missing .task-status-badge {
+  background: var(--text-muted);
+  color: var(--bg-base);
+}
+.task-ring.missing > .task-file-glyph {
+  color: var(--text-muted);
+}
+.task-ring.canceled .task-status-badge {
+  background: var(--text-muted);
+  color: var(--bg-base);
+}
+.task-ring.indeterminate {
+  background: transparent;
+}
+.task-ring.indeterminate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--border-subtle);
+  border-top-color: var(--ring-color);
+  border-radius: 50%;
+  animation: task-wait 1.2s linear infinite;
+}
+.task-ring.indeterminate > .task-file-glyph {
+  position: relative;
+}
+.task-ring.indeterminate.paused::before {
+  animation-play-state: paused;
+}
+@keyframes task-wait {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes task-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.popup-task-menu:not([hidden]),
+dialog[open] {
+  animation: task-panel-in var(--dur-fast) var(--ease);
+}
+.task-metrics {
+  font-variant-numeric: tabular-nums;
+}
+[data-task-state='failed'] .task-speed,
+[data-task-state='failed'] .task-message {
+  color: var(--status-error);
+}
+[data-task-state='complete'] .task-speed {
+  color: var(--status-success);
+}
+[data-task-state='paused'] .task-speed,
+[data-task-state='canceled'] .task-speed,
+[data-task-state='missing'] .task-speed {
+  color: var(--text-secondary);
+}
+.task-message {
+  margin: 4px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-snug);
+  overflow-wrap: anywhere;
+}
+.inspector-note {
+  color: var(--text-secondary);
+}
+.task-row-end {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 10px;
+}
+.task-row-end time {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.row-actions {
+  display: flex;
+  gap: 2px;
+}
+.row-actions .icon-button {
+  width: 25px !important;
+  height: 25px !important;
+}
+.note-dot {
+  color: var(--text-muted);
+  font-size: 9px;
+  border: 1px solid var(--border-default);
+  padding: 0 4px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.task-inspector {
+  overflow-y: auto;
+  border-left: 1px solid var(--border-default);
+  padding: 0 16px 20px;
+  background: var(--bg-base);
+  min-width: 0;
+}
+.inspector-heading {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.inspector-file {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 16px 0 12px;
+}
+.inspector-file h2 {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  font-weight: 600;
+}
+.inspector-file .file-symbol {
+  width: 32px;
+  height: 38px;
+  flex-shrink: 0;
+}
+.inspector-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.inspector-actions .button {
+  font-size: 11px;
+}
+.inspector-warning {
+  font-size: 11px;
+  color: var(--status-error);
+  padding-top: 10px;
+  overflow-wrap: anywhere;
+}
+.task-inspector .detail-rows {
+  margin: 18px 0;
+}
+.task-inspector .detail-rows div {
+  display: block;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.task-inspector .detail-rows dt {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.task-inspector .detail-rows dd {
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  color: var(--text-secondary);
+}
+.task-inspector .field {
+  font-size: 11px;
+  margin: 0;
+}
+.task-inspector textarea {
+  font-size: 12px;
+  padding: 8px;
+  min-height: 64px;
+}
+.inspector-more {
+  margin-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 10px;
+}
+.inspector-more summary {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+.inspector-more .text-button {
+  display: block;
+  font-size: 11px;
+  padding: 7px 0;
+}
+.inspector-empty {
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.inspector-empty > .icon {
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+}
+.inspector-empty span {
+  font-size: 11px;
+}
+.task-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  gap: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 24px;
+}
+.task-empty > .icon {
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+}
+.task-empty h2 {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+.task-empty p {
+  font-size: 12px;
+}
+.manager-app .content-footer {
+  height: 28px;
+  min-height: 28px;
+  padding: 0 16px;
+  border-top: 1px solid var(--border-default);
+  margin: 0;
+  font-size: 10px;
+  flex-shrink: 0;
+  background: var(--bg-base);
+}
+.manager-app .content-footer .text-button {
+  font-size: 10px;
+  padding: 0;
+}
+.manager-app #featureView,
+.manager-app #rulesView {
+  padding: 16px 20px;
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
+}
+.manager-app .rule-onboarding {
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.manager-app .rule-onboarding h2 {
+  font-size: 15px;
+}
+.manager-app .rule-onboarding p {
+  font-size: 12px;
+}
+.manager-app .rule-card {
+  padding: 13px;
+}
+.manager-app .rule-tools {
+  gap: 8px;
+}
+.manager-app .feature-panel {
+  border-radius: 8px;
+  padding: 18px;
+}
+.manager-app .feature-panel .button {
+  min-height: 32px;
+}
+.manager-app .download-grid {
+  display: block;
+}
+.task-list.task-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  padding: 12px;
+}
+.task-grid .task-row {
+  flex-wrap: wrap;
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  padding: 12px;
+}
+.task-grid .task-copy {
+  min-width: 150px;
+}
+.task-grid .task-row-end {
+  width: 100%;
+  flex-direction: row;
+}
+.task-grid .task-source {
+  max-width: 220px;
+}
+.popup-document {
+  /* Give Chrome an intrinsic popup size even before its first viewport resize. */
+  --popup-height: 580px;
+  width: 440px;
+  height: var(--popup-height);
+  overflow: hidden;
+}
+.popup-document.monitor-document {
+  width: 100%;
+  height: 100%;
+}
+.task-popup {
+  width: 440px;
+  height: var(--popup-height);
+  max-height: 100vh;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 12px;
+}
+.task-popup .popup-header {
+  padding: 10px 14px;
+  height: 52px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.task-popup .brand {
+  font-size: 17px;
+  gap: 9px;
+  font-weight: 500;
+}
+.task-popup .brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+.task-popup .brand-mark .icon {
+  width: 18px;
+  height: 18px;
+}
+.task-popup .icon-button {
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+}
+.task-popup .icon-button .icon {
+  width: 16px;
+  height: 16px;
+}
+.popup-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 14px;
+  height: 34px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-subtle);
+}
+.popup-toolbar .text-button {
+  font-size: 10px;
+  gap: 4px;
+  white-space: nowrap;
+  padding: 4px 0;
+}
+.popup-toolbar #popupCount {
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.task-popup .popup-list {
+  padding: 0;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+}
+.task-popup .popup-item {
+  display: flex;
+  gap: 11px;
+  padding: 12px 14px;
+  min-height: 84px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.task-popup .task-copy {
+  min-width: 0;
+}
+.task-popup .task-source {
+  font-size: 10px;
+  margin: 5px 0;
+}
+.task-popup .task-metrics {
+  font-size: 10px;
+  gap: 6px;
+  flex-wrap: wrap;
+  line-height: 1.4;
+}
+.popup-task-name {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  display: block;
+  max-width: 100%;
+  text-align: left;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.popup-task-name:hover {
+  color: #3776b9;
+  text-decoration: underline;
+}
+.popup-item-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+.task-popup .popup-status {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: 0;
+  padding: 7px 14px;
+  font-size: 10px;
+  min-height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.task-popup .popup-status .switch {
+  transform: scale(0.8);
+  transform-origin: right center;
+}
+.task-popup .popup-footer {
+  padding: 0;
+  margin-top: 0;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.task-popup .popup-footer .button {
+  border: 0;
+  border-radius: 0;
+  min-height: 37px;
+  font-size: 12px;
+}
+.task-popup .popup-empty {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 14px;
+  font-size: 12px;
+}
+.task-popup .popup-empty span {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.task-popup.monitor-window {
+  width: 100%;
+  height: 100vh;
+  max-height: none;
+}
+.popup-task-menu {
+  position: fixed;
+  z-index: 30;
+  width: 252px;
+  max-width: calc(100vw - 16px);
+  padding: 5px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  overflow-y: auto;
+}
+.popup-task-menu button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 8px;
+  min-height: 32px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+.popup-task-menu button:hover,
+.popup-task-menu button:focus-visible {
+  background: var(--surface-hover);
+}
+.popup-task-menu button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.popup-task-menu button.danger {
+  color: var(--status-error);
+}
+.popup-task-menu button .icon {
+  width: 16px;
+  height: 16px;
+}
+.popup-task-menu small {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.popup-task-menu [role='separator'] {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 4px 7px;
+}
+.popup-task-menu [data-menu-action='copy-url'] {
+  font-weight: 600;
+}
+.task-popup .popup-item-actions [aria-expanded='true'] {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+.popup-toast {
+  position: fixed;
+  z-index: 40;
+  bottom: 8px;
+  left: 12px;
+  right: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 7px;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+.popup-delete-dialog {
+  width: 400px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 24px);
+  padding: 20px;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  margin: auto;
+}
+.popup-delete-dialog::backdrop {
+  background: var(--overlay);
+}
+.popup-delete-dialog h2 {
+  font-size: 16px;
+  margin: 0 0 16px;
+}
+.popup-delete-dialog p {
+  margin: 10px 0;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.delete-file-name {
+  font-weight: 600;
+}
+.delete-location {
+  padding: 10px;
+  background: var(--bg-subtle);
+  border-radius: 5px;
+  margin: 14px 0;
+}
+.delete-location > span {
+  display: block;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.delete-location code {
+  display: block;
+  font-size: 11px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.delete-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+.delete-confirm {
+  background: var(--status-error);
+  color: var(--text-inverse);
+  border-color: var(--status-error);
+}
+.delete-confirm:hover {
+  background: var(--status-error);
+  filter: brightness(0.9);
+}
+.monitor-window .popup-list {
+  max-height: none;
+}
+@media (max-width: 1120px) {
+  .manager-app {
+    --sidebar-width: 158px;
+  }
+  .task-workspace {
+    grid-template-columns: minmax(0, 1fr) 266px;
+  }
+  .manager-app .task-toolbar .button > span {
+    display: none;
+  }
+  .manager-app .task-toolbar {
+    gap: 2px;
+    padding: 7px 10px;
+  }
+  .manager-app .task-filterbar {
+    gap: 6px;
+    padding: 6px 10px;
+  }
+  .task-row {
+    padding: 10px;
+    gap: 9px;
+  }
+  .task-inspector {
+    padding: 0 12px 16px;
+  }
+}
+@media (max-width: 900px) {
+  .manager-app {
+    --sidebar-width: 146px;
+  }
+  .manager-app .sidebar .brand {
+    font-size: 12px;
+  }
+  .manager-app .brand-mark {
+    width: 25px;
+    height: 25px;
+  }
+  .manager-app .topbar {
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .manager-app .topbar .version {
+    display: none;
+  }
+  .manager-app .topbar .search {
+    width: 40%;
+  }
+  .task-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .task-inspector {
+    position: fixed;
+    right: 0;
+    top: 54px;
+    bottom: 28px;
+    width: 290px;
+    z-index: 20;
+    box-shadow: -8px 0 25px #00000012;
+    transform: translateX(100%);
+  }
+  .manager-app[data-has-selection='true'] .task-inspector {
+    transform: translateX(0);
+  }
+  .manager-app .nav-item .icon {
+    display: inline-block;
+  }
+  .manager-app .nav-child .icon {
+    display: none;
+  }
+  .manager-app .sidebar .brand-sub,
+  .manager-app .nav-count,
+  .manager-app .sidebar-bottom {
+    display: initial;
+  }
+  .manager-app .sidebar .brand {
+    justify-content: flex-start;
+  }
+  .manager-app .sidebar-bottom {
+    margin-top: auto;
+  }
+  .manager-app .sidebar-footer > span {
+    display: none;
+  }
+  .manager-app .page-heading {
+    padding: 12px;
+  }
+  .manager-app #featureView,
+  .manager-app #rulesView {
+    padding: 12px;
+  }
+  .manager-app .task-toolbar .button {
+    font-size: 11px;
+    padding: 4px 7px;
+  }
+  .task-row-end time {
+    font-size: 9px;
+  }
+}
+/* Override the old stacked mobile shell: the task manager stays a two-pane app. */
+.manager-app .app-shell {
+  display: flex;
+}
+.manager-app .sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--sidebar-width);
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 0;
+}
+.manager-app main {
+  margin-left: var(--sidebar-width);
+}
+.manager-app #navigation {
+  display: block;
+}
+.manager-app #rulesNav {
+  display: flex;
+}
+.manager-app .topbar {
+  display: flex;
+}
+.manager-app .sidebar-bottom {
+  display: block;
+}
+.manager-app .sidebar-divider {
+  display: block;
+}
+.manager-app .content-footer {
+  align-items: center;
+}
+.inspector-heading {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg-base);
+}
+.manager-app .sidebar .brand-sub {
+  display: block;
+}
+.manager-app .sidebar .brand > span:last-child {
+  min-width: 0;
+  white-space: nowrap;
+}
+#newTaskForm .field {
+  margin: 18px 0;
+}
+#newTaskForm textarea {
+  font-family: inherit;
+  font-size: 13px;
+}
+#newTaskForm .modal-footer {
+  margin-top: 22px;
+}
+
+#moreFileTypes > summary {
+  padding: 7px 12px 7px 30px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.archive-settings {
+  margin-bottom: 20px;
+}
+.root-settings-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 32px;
+  margin: 20px 0;
+}
+.archive-settings h3 {
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+.archive-settings p {
+  line-height: 1.7;
+}
+#archiveRootPreview {
+  display: block;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.default-catalogue {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 16px;
+}
+.default-catalogue summary {
+  cursor: pointer;
+  font-size: 13px;
+}
+.catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px 24px;
+  margin: 20px 0;
+}
+.catalogue-grid strong {
+  font-size: 13px;
+}
+.catalogue-grid p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+  margin: 6px 0;
+}
+@media (max-width: 1000px) {
+  .root-settings-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.brand .product-mark {
+  display: block;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+}
+.task-popup .brand .product-mark {
+  width: 30px;
+  height: 30px;
+}
+
+/* The rule preview stays beside the fields, including while advanced settings scroll. */
+#ruleDialog {
+  --modal-width: 56rem;
+}
+.rule-editor-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 18rem);
+  align-items: start;
+  gap: var(--sp-6);
+}
+.rule-fields {
+  min-width: 0;
+}
+.rule-preview-panel {
+  position: sticky;
+  top: 0;
+  margin-top: var(--sp-3);
+}
+.rule-preview-panel .form-grid {
+  grid-template-columns: 1fr;
+  gap: var(--sp-2);
+}
+.rule-preview-panel .rule-preview {
+  line-height: var(--lh-relaxed);
+}
+#ruleAdvancedSave,
+#ruleAdvancedMatch,
+#ruleScope {
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--border-subtle);
+}
+.setup-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-shrink: 0;
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-subtle);
+  font-size: var(--fs-sm);
+}
+.setup-banner > div {
+  flex: 1;
+}
+.setup-banner p {
+  margin: var(--sp-1) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+}
+.setup-banner button {
+  flex-shrink: 0;
+}
+.setup-dialog {
+  --modal-width: 38rem;
+}
+.setup-dialog section > p {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  margin-top: var(--sp-3);
+}
+.setup-location {
+  padding: var(--sp-4);
+  margin-top: var(--sp-5);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+  font-size: var(--fs-sm);
+}
+.setup-location p {
+  color: var(--text-secondary);
+  margin: var(--sp-2) 0 var(--sp-3);
+}
+.setup-path {
+  overflow-wrap: anywhere;
+  line-height: var(--lh-relaxed);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  margin-top: var(--sp-3);
+}
+.setup-option {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: start;
+  padding: var(--sp-4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.setup-option:has(input:checked) {
+  border-color: var(--text-primary);
+  background: var(--bg-subtle);
+}
+.setup-option input,
+.setup-time-option input {
+  flex: 0 0 var(--sp-4);
+  width: var(--sp-4);
+  height: var(--sp-4);
+  margin: var(--sp-1) 0 0;
+  padding: 0;
+  accent-color: var(--text-primary);
+}
+.setup-option input:focus-visible,
+.setup-time-option input:focus-visible {
+  outline: 2px solid var(--text-secondary);
+  outline-offset: 3px;
+}
+.setup-option > span {
+  flex: 1;
+  min-width: 0;
+}
+.setup-option small {
+  display: block;
+  margin-top: var(--sp-1);
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+}
+.setup-date-group {
+  min-width: 0;
+  margin-top: var(--sp-4);
+  padding: 0;
+  border: 0;
+  font-size: var(--fs-sm);
+}
+.setup-date-group legend {
+  padding: 0;
+  margin-bottom: var(--sp-2);
+}
+.setup-date-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.setup-time-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.setup-time-option input {
+  margin: 0;
+}
+.setup-time-option:has(input:checked) {
+  background: var(--bg-subtle);
+  border-color: var(--text-primary);
+}
+#setupDateKeep {
+  grid-column: 1 / -1;
+}
+#setupLayoutHint {
+  margin-top: var(--sp-3);
+}
+.setup-example {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3);
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+}
+.setup-example > p {
+  margin-bottom: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+.setup-example-tree {
+  overflow: hidden;
+}
+.setup-example-entry {
+  display: flex;
+  align-items: start;
+  gap: var(--sp-2);
+  padding: var(--sp-1) 0 var(--sp-1) calc(var(--depth) * var(--sp-3));
+  font-size: var(--fs-xs);
+}
+.setup-example-entry svg {
+  width: var(--sp-4);
+  height: var(--sp-4);
+  flex-shrink: 0;
+}
+.setup-example-entry span {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+@media (max-width: 760px) {
+  .rule-editor-body {
+    grid-template-columns: 1fr;
+  }
+  .rule-preview-panel {
+    grid-row: 1;
+    z-index: 1;
+  }
+  .setup-banner {
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+  }
+  .setup-banner > div {
+    flex-basis: 100%;
+  }
+  .setup-dialog .modal-footer {
+    flex-wrap: wrap;
+  }
+}

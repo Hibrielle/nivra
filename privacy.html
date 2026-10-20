@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nivra Privacy Policy / 隐私政策</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font:
+          16px/1.8 system-ui,
+          sans-serif;
+      }
+      body {
+        max-width: 760px;
+        margin: 48px auto;
+        padding: 0 24px 48px;
+      }
+      h1 {
+        font-size: 30px;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        margin-top: 32px;
+        font-size: 20px;
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 3px;
+        overflow-wrap: anywhere;
+      }
+      .meta {
+        opacity: 0.65;
+      }
+      li {
+        margin: 10px 0;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="#english">English</a> · <a href="#chinese" lang="zh-CN">简体中文</a></nav>
+      <section id="english" lang="en">
+        <h1>Nivra Privacy Policy</h1>
+        <p class="meta">Version 1.0.0 · Updated October 20, 2026</p>
+        <p>
+          Nivra manages and organizes browser downloads. Its developer is scieszkanottingham.
+          Contact: <a href="mailto:scieszkanottingham@gmail.com">scieszkanottingham@gmail.com</a>.
+        </p>
+        <p>
+          Nivra has no developer-operated data collection server, advertisements, analytics SDK, or
+          product telemetry. Most data stays in your browser. Features you choose to use, such as
+          rule backups, resource loading, and external downloaders, communicate with the
+          corresponding services.
+        </p>
+        <h2>Information processed</h2>
+        <ul>
+          <li>
+            <strong>Download management:</strong> file names, local paths, source addresses, file
+            types and sizes, timestamps, status, organization results, and your notes. Stored source
+            URLs omit embedded credentials, query parameters, and fragments. Actions such as copying
+            a link or downloading again read the complete URL from Chrome when needed. Pending
+            downloads retain the original links needed to start them.
+          </li>
+          <li>
+            <strong>Resource discovery:</strong> after you select pages and start scanning or
+            capture, Nivra extracts resource URLs, page titles, link text, content types,
+            dimensions, and sizes. Network capture keeps relevant resource metadata from selected
+            tabs, not request or response bodies. Image thumbnails load from the original websites,
+            which may receive your IP address and cookies sent according to browser rules.
+          </li>
+          <li>
+            <strong>Download reports:</strong> transferred bytes, speed samples, pauses and
+            failures, source and destination domains, observed redirects, and connection endpoint IP
+            addresses. Nivra briefly observes HTTP(S) requests and fingerprints URLs to associate
+            them with downloads. It does not look up DNS afterward or send reports to the developer.
+            Endpoint IPs may belong to CDNs or proxies and are not used to infer your location.
+          </li>
+          <li>
+            <strong>Rules and preferences:</strong> matching conditions, folder and file name
+            templates, filters, language, theme, and other settings. Rules can contain websites,
+            keywords, or directory names you enter. They are evaluated locally without executing
+            remote scripts.
+          </li>
+          <li>
+            <strong>External downloaders:</strong> if you connect one, Nivra stores its address,
+            username, and password or RPC secret locally. When you send a torrent, it reads the
+            corresponding .torrent file you select or authorize and submits its contents and name to
+            your configured qBittorrent, Transmission, or aria2 service. Credentials are excluded
+            from rule exports, cloud backups, reports, and MCP.
+          </li>
+        </ul>
+        <h2>Storage and retention</h2>
+        <p>
+          Rules, settings, download records, the queue, and downloader connections use local Chrome
+          extension storage. Reports use local IndexedDB. These rely on Chrome's extension isolation
+          and your device's access controls; Nivra does not add application-level encryption to
+          local storage. Automatic organization and reports do not record incognito downloads.
+        </p>
+        <p>
+          Nivra retains up to 500 finished task records, with optional cleanup by age. Original
+          queue URLs are removed after completion or cancellation. Resource results remain in
+          browser session storage until the corresponding tab closes or you clear them. The
+          in-memory request association cache holds up to 256 entries; entries not updated for 30
+          seconds are pruned when later requests are processed, and the cache disappears when the
+          background process stops.
+        </p>
+        <p>
+          Finished reports are retained for 30 days, up to 200 reports, under an approximately 8 MiB
+          data budget. Each report holds at most 400 aggregated samples, 100 events, and 32
+          connections. Clearing a download history record or automatically removing its task also
+          removes the report. Moving a task to Nivra's trash keeps its report.
+        </p>
+        <h2>Communication with other services</h2>
+        <p>
+          Downloads and resource thumbnails are requested from the websites you choose, subject to
+          Chrome's and those sites' behavior. Only selecting “Upload and replace backup” writes your
+          rules to Chrome Sync, which Google may sync to your other devices. Files, download
+          records, reports, and downloader credentials are not included in rule backups.
+        </p>
+        <p>
+          Downloader credentials and torrent files are sent only to the service address you
+          configure. Prefer HTTPS. HTTP does not encrypt the transfer and can expose its contents to
+          other parties on the network. qBittorrent sign-in may create a session cookie managed by
+          Chrome and that service; Nivra does not read or export cookie values.
+        </p>
+        <p>
+          The optional local MCP helper is not installed with the store extension. It processes
+          rules supplied by its caller and does not read browser tasks or credentials. If you share
+          a prompt, rule pack, or diagnostic summary with an AI service or another recipient, that
+          recipient handles the information you choose to provide.
+        </p>
+        <h2>Your controls</h2>
+        <p>
+          You can view tasks, reports, rules, and settings in the manager; remove records through
+          task actions; clear resource results; and disconnect an external downloader in settings.
+          Deleting a local file is a separate action requiring confirmation. Clearing plugin records
+          does not automatically remove files from disk.
+        </p>
+        <p>
+          Use Settings → Cloud rule backup → Delete cloud backup to remove the synced backup without
+          changing local rules. Uninstalling Nivra removes local extension data. Downloaded files,
+          Chrome's download history, remote downloader tasks, and remote login sessions must be
+          managed separately. Optional notification, file-opening, and local-file permissions can be
+          revoked in Chrome's extension settings.
+        </p>
+        <h2>Limited use and contact</h2>
+        <p>
+          Nivra's use of information received from Google APIs follows the
+          <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq"
+            >Chrome Web Store User Data Policy</a
+          >, including its Limited Use requirements. Data is used only for the user-facing features
+          described above. It is not sold, used for advertising, creditworthiness assessments, or
+          lending, or made available for the developer or others to inspect on your device.
+          Information you voluntarily provide when requesting support is used to address that
+          request.
+        </p>
+        <p>
+          We will update this policy if our data practices change and explain features that need
+          additional authorization before they are enabled. For privacy questions, contact
+          <a href="mailto:scieszkanottingham@gmail.com">scieszkanottingham@gmail.com</a>. Do not
+          send passwords, RPC secrets, or download links containing access tokens.
+        </p>
+      </section>
+      <section id="chinese" lang="zh-CN">
+        <h1>Nivra 隐私政策</h1>
+        <p class="meta">适用版本：1.0.0 · 更新日期：2026 年 10 月 20 日</p>
+        <p>
+          Nivra 是一个管理和整理浏览器下载的扩展。开发者为 scieszkanottingham，联系邮箱为
+          <a href="mailto:scieszkanottingham@gmail.com">scieszkanottingham@gmail.com</a>。
+        </p>
+        <p>
+          Nivra 没有开发者运营的数据收集服务器，不含广告、分析 SDK
+          或产品遥测。主要数据保存在你的浏览器中；你主动使用规则云端备份、网页资源加载或外部下载器时，会与相应服务通信。
+        </p>
+
+        <h2>处理哪些信息</h2>
+        <ul>
+          <li>
+            <strong>下载管理：</strong
+            >文件名、本地保存路径、来源地址、文件类型与大小、下载时间、状态、归档结果及你填写的备注。插件持久保存的来源地址去除账号密码、查询参数和片段；复制链接、重新下载等操作会按需从
+            Chrome 下载记录读取完整链接。待下载队列为发起下载保留原始链接。
+          </li>
+          <li>
+            <strong>资源发现：</strong
+            >只有你选择网页并点击扫描或开启捕获后，才提取该网页中的资源链接、页面标题、链接文字、资源类型、尺寸、大小等信息。网络捕获只保留所选标签页中用于识别下载资源的响应信息，不保存请求或响应正文。展示图片缩略图会向原资源网站加载图片，网站可能收到
+            IP 地址及浏览器按其规则携带的 Cookie。
+          </li>
+          <li>
+            <strong>下载报告：</strong
+            >下载字节数、速度采样、暂停与失败事件、来源与最终域名、观测到的重定向及连接端点
+            IP。为关联下载，扩展短暂观察 HTTP(S) 请求，将链接转换为指纹；不会事后查询
+            DNS，也不会将这些报告上传给开发者。端点 IP 可能属于 CDN 或代理，不用于推断用户位置。
+          </li>
+          <li>
+            <strong>规则和偏好：</strong
+            >你设置的分类条件、目录模板、筛选器、主题及其他偏好。规则可能包含你填写的网站、关键词或目录名称。规则在本机计算，不执行远端脚本。
+          </li>
+          <li>
+            <strong>外部下载器：</strong>只有你主动绑定时，保存服务地址、用户名和密码或 RPC
+            密钥；主动发送种子时读取你选择或授权访问的对应 .torrent
+            文件，并将其内容和文件名交给你配置的 qBittorrent、Transmission 或
+            aria2。凭据不进入规则导出、云端备份、下载报告或 MCP。
+          </li>
+        </ul>
+
+        <h2>数据保存在何处、保留多久</h2>
+        <p>
+          规则、偏好、下载任务、队列及下载器绑定保存在本机 Chrome 扩展存储中；下载报告保存在本机
+          IndexedDB。这些数据依赖 Chrome 的扩展隔离和设备访问控制，Nivra
+          不额外加密本地存储。自动归档和报告不记录无痕下载。
+        </p>
+        <p>
+          已结束的插件任务最多保留 500
+          条；你也可以设置按天自动清理。待下载队列在完成或取消后移除原始链接。资源发现结果保存在浏览器会话中，关闭对应标签页或手动清空时移除。请求关联缓存保留在内存中，最多
+          256 项，在处理后续请求时淘汰超过 30 秒未更新的项目，后台停止时释放。
+        </p>
+        <p>
+          已结束报告保留 30 天、最多 200 份，按约 8 MiB 数据预算清理较旧报告；每份最多 400
+          个采样点、100 个事件和 32
+          条连接。清除对应下载历史或自动清理插件任务时，也会清理其报告；移入插件回收站会保留报告。
+        </p>
+
+        <h2>何时与其他服务通信</h2>
+        <p>
+          下载与资源缩略图请求会发送给你选择的原网站，按 Chrome
+          和该网站的规则处理。只有你点击“上传并替换云端备份”时，规则才写入 Chrome 同步存储，并可能由
+          Google 同步到你的其他设备。下载文件、任务记录、报告与下载器凭据不参与规则同步。
+        </p>
+        <p>
+          外部下载器凭据与种子文件只发送到你配置的服务地址。请优先使用 HTTPS；HTTP
+          传输不加密，可能被同一网络中的其他参与者读取。qBittorrent
+          登录可能产生由浏览器和该服务管理的会话 Cookie；扩展不读取或导出 Cookie 值。
+        </p>
+        <p>
+          可选的本地 MCP
+          工具不随商店安装包安装，只处理调用方主动提供的规则，不读取浏览器任务或凭据。你将提示词、规则或报告摘要提供给
+          AI 服务或其他人时，信息由你选择的服务或接收者处理。
+        </p>
+
+        <h2>如何查看、删除和控制</h2>
+        <p>
+          你可以在管理页查看任务、报告、规则和偏好；在任务菜单中移除记录或清除浏览器下载历史，在资源发现中清空结果，在设置中解除下载器绑定。删除本地文件是独立操作，需要确认；清理插件记录不会自动删除磁盘文件。
+        </p>
+        <p>
+          在“设置 →
+          规则云端备份”可以删除云端备份，本机规则保持不变。卸载扩展会清除本机扩展数据；已经下载到磁盘的文件、Chrome
+          下载历史、外部下载器中的任务及远端登录会话需在各自位置另行管理。通知、打开文件和本地文件访问可以在
+          Chrome 扩展权限中撤销。
+        </p>
+
+        <h2>使用范围与联系</h2>
+        <p>
+          Nivra 对从 Google API 接收到的信息的使用遵循
+          <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq"
+            >Chrome Web Store 用户数据政策</a
+          >，包括 Limited Use
+          要求。数据仅用于上述面向用户的功能，不出售数据，不用于广告、信用评估或放贷，也不允许开发者或其他人员主动查看你的本机数据。你主动请求技术支持并自愿提供的信息，仅用于处理该请求。
+        </p>
+        <p>
+          如果未来改变数据处理方式，我们会更新本政策；需要新增授权的功能会在启用前说明。隐私相关问题请联系
+          <a href="mailto:scieszkanottingham@gmail.com">scieszkanottingham@gmail.com</a
+          >。请不要发送密码、RPC 密钥或含访问令牌的下载链接。
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

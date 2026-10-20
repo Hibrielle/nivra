@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light" class="popup-document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Nivra · 下载进度</title>
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="manager-layout.css" />
+    <script type="module" src="boot.js"></script>
+  </head>
+  <body class="popup-body task-popup">
+    <header class="popup-header">
+      <div class="brand">
+        <img class="product-mark" src="icons/brand.svg" width="32" height="32" alt="" /><span
+          >Nivra</span
+        >
+      </div>
+      <div class="row">
+        <button
+          class="icon-button"
+          id="popupThemeToggle"
+          data-theme-toggle
+          title="切换到深色模式"
+          aria-label="切换到深色模式"
+        >
+          <span data-icon="moon"></span>
+        </button>
+        <button class="icon-button" id="popupResources" title="资源嗅探" aria-label="资源嗅探">
+          <span data-icon="search"></span></button
+        ><button class="icon-button" id="popupSettings" title="设置" aria-label="设置">
+          <span data-icon="rules"></span></button
+        ><button
+          class="icon-button"
+          id="openManager"
+          title="打开下载管理器"
+          aria-label="打开管理页"
+        >
+          <span data-icon="external"></span>
+        </button>
+      </div>
+    </header>
+    <div class="popup-toolbar">
+      <button class="text-button" id="popupNew"><span data-icon="plus"></span>新建</button
+      ><button class="text-button" id="popupPause"><span data-icon="pause"></span>全部暂停</button
+      ><button class="text-button" id="popupResume"><span data-icon="play"></span>全部继续</button
+      ><span class="spacer"></span><span id="popupCount"></span>
+    </div>
+    <div id="popupList" class="popup-list" aria-label="最近下载任务"></div>
+    <div class="popup-status">
+      <span id="popupStatusText">自动归档</span
+      ><button
+        id="popupToggle"
+        class="switch"
+        role="switch"
+        aria-label="自动归档"
+        aria-checked="true"
+      >
+        <span></span>
+      </button>
+    </div>
+    <footer class="popup-footer">
+      <button id="seeAll" class="button full-width">
+        打开下载管理器<span data-icon="arrow"></span>
+      </button>
+    </footer>
+    <div id="popupToast" class="popup-toast" role="status" hidden></div>
+  </body>
+</html>

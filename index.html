@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Nivra is an open-source Chrome download manager with automatic file organization and local download reports."
+    />
+    <title>Nivra — Downloads, organized</title>
+    <link rel="icon" href="icons/icon48.png" />
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      body {
+        margin: 0;
+        background: var(--bg-base);
+        color: var(--text-primary);
+        font: var(--fs-base) / var(--lh-relaxed) var(--font-sans);
+      }
+      main {
+        max-width: 840px;
+        margin: auto;
+        padding: var(--sp-16) var(--sp-6);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: var(--sp-3);
+        font-size: var(--fs-xl);
+        font-weight: var(--fw-semibold);
+      }
+      .brand img {
+        width: 48px;
+        height: 48px;
+      }
+      h1 {
+        margin: var(--sp-16) 0 var(--sp-4);
+        font-size: clamp(36px, 7vw, 64px);
+        line-height: var(--lh-tight);
+        letter-spacing: var(--tracking-tight);
+        font-weight: var(--fw-medium);
+      }
+      .intro {
+        max-width: 680px;
+        color: var(--text-secondary);
+        font-size: var(--fs-lg);
+      }
+      .links {
+        display: flex;
+        gap: var(--sp-3);
+        flex-wrap: wrap;
+        margin: var(--sp-8) 0 var(--sp-12);
+      }
+      .links a {
+        padding: var(--sp-2) var(--sp-5);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-pill);
+        text-decoration: none;
+      }
+      .links a:first-child {
+        background: var(--text-primary);
+        color: var(--bg-base);
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 4px;
+      }
+      .features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--sp-4);
+      }
+      article {
+        background: var(--bg-subtle);
+        padding: var(--sp-6);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+      }
+      article h2 {
+        margin: 0 0 var(--sp-2);
+        font-size: var(--fs-lg);
+      }
+      article p,
+      footer {
+        color: var(--text-secondary);
+      }
+      article p {
+        margin: 0;
+      }
+      .release {
+        margin: var(--sp-8) 0;
+        font-size: var(--fs-sm);
+        color: var(--text-secondary);
+      }
+      footer {
+        border-top: 1px solid var(--border-default);
+        padding-top: var(--sp-6);
+        font-size: var(--fs-sm);
+      }
+      @media (max-width: 540px) {
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="brand"><img src="icons/brand.svg" alt="" />Nivra</div>
+      <h1>Downloads,<br />organized.</h1>
+      <p class="intro">
+        Manage downloads in one place, put new files in the right folders, and look back at their
+        speed and connection details.
+      </p>
+      <div class="links">
+        <a href="https://github.com/Hibrielle/nivra">View source on GitHub</a>
+        <a href="privacy.html">Privacy policy / 隐私政策</a>
+      </div>
+      <div class="features">
+        <article>
+          <h2>A familiar download manager</h2>
+          <p>
+            Pause, resume, retry, copy links, and find files from a compact popup or the full
+            manager.
+          </p>
+        </article>
+        <article>
+          <h2>Your folders, your rules</h2>
+          <p>
+            Combine file types with monthly or daily folders. Preview paths before saving custom
+            rules.
+          </p>
+        </article>
+        <article>
+          <h2>Reports on your device</h2>
+          <p>
+            Inspect sampled speeds, pauses, and observed connection IPs. No product telemetry or
+            developer data server.
+          </p>
+        </article>
+        <article>
+          <h2>English and Chinese</h2>
+          <p>
+            Follows your browser language, with a manual choice in settings. Light and dark themes
+            are included.
+          </p>
+        </article>
+      </div>
+      <p class="release">
+        Version 1.0.0 is being prepared for the Chrome Web Store. Requires Chrome 127 or later.
+        Source code is available under the MIT license.
+      </p>
+      <footer>
+        <p lang="zh-CN">Nivra：管理下载、自动分类、查看下载报告。只整理新下载，不移动已有文件。</p>
+        <p>
+          Contact: <a href="mailto:scieszkanottingham@gmail.com">scieszkanottingham@gmail.com</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

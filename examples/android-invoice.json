@@ -1,0 +1,19 @@
+{
+  "format": "nivra-rules",
+  "version": 1,
+  "rules": [
+    {
+      "name": "Android 构建包",
+      "enabled": true,
+      "extensions": "apk, aab, apks",
+      "folder": "安装包/Android/{year}-{month}"
+    },
+    {
+      "name": "电子发票",
+      "enabled": true,
+      "extensions": "pdf",
+      "keyword": "发票",
+      "folder": "票据/{year}-{month}"
+    }
+  ]
+}

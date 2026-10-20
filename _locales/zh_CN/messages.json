@@ -1,0 +1,7 @@
+{
+  "extensionName": { "message": "Nivra 下载管理器" },
+  "extensionDescription": { "message": "管理下载、自动归档，并记录速度曲线与连接信息。" },
+  "extensionActionTitle": { "message": "Nivra · 下载进度" },
+  "openManager": { "message": "打开下载管理器" },
+  "scanPage": { "message": "扫描当前页面的下载资源" }
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>下载报告 · Nivra</title>
+    <link rel="icon" href="icons/icon48.png" />
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="report.css" />
+    <script type="module" src="boot.js"></script>
+  </head>
+  <body class="report-page">
+    <header class="report-header">
+      <a class="brand" href="manager.html"
+        ><img class="product-mark" src="icons/icon48.png" width="30" height="30" alt="" /><span
+          class="product-name"
+          >Nivra</span
+        ></a
+      >
+      <div class="row">
+        <button class="button" id="copyReport">复制诊断摘要</button
+        ><button
+          class="icon-button"
+          data-theme-toggle
+          id="reportTheme"
+          aria-label="切换深浅模式"
+        ></button>
+      </div>
+    </header>
+    <main class="report-main">
+      <div class="report-title">
+        <div>
+          <span class="eyebrow">下载报告</span>
+          <h1 id="reportName">正在读取…</h1>
+          <p id="reportSubtitle"></p>
+        </div>
+        <span id="reportState" class="badge"></span>
+      </div>
+      <div id="reportError" class="notice" role="status" hidden></div>
+      <div id="reportBody" hidden>
+        <section id="reportStats" class="report-stats" aria-label="速度与耗时"></section>
+        <section class="report-panel">
+          <div class="row between wrap">
+            <div>
+              <h2>速度曲线</h2>
+              <p class="field-hint" id="chartHint"></p>
+            </div>
+            <span class="report-legend"
+              ><i></i>速度 <i class="paused"></i>暂停 <i class="gap"></i>未采样 / 样本不足</span
+            >
+          </div>
+          <div
+            id="speedChart"
+            class="speed-chart"
+            tabindex="0"
+            role="group"
+            aria-label="下载速度曲线，使用左右方向键查看采样"
+          >
+            <svg id="chartSvg" viewBox="0 0 960 250" role="img" aria-label="速度随时间变化"></svg
+            ><output id="chartTooltip" aria-live="polite">移动鼠标或使用左右方向键查看采样</output>
+          </div>
+          <p class="field-hint">
+            速度为采样区间内的平均值。暂停和缺失区间分别标注；曲线留白不代表零速。
+          </p>
+        </section>
+        <div class="report-columns">
+          <section class="report-panel">
+            <h2>连接信息</h2>
+            <p class="field-hint" id="networkHint"></p>
+            <dl id="networkSummary" class="report-facts"></dl>
+            <ol id="networkHops" class="network-hops"></ol>
+          </section>
+          <section class="report-panel">
+            <h2>事件时间轴</h2>
+            <ol id="reportEvents" class="report-events"></ol>
+            <p id="eventHint" class="field-hint"></p>
+          </section>
+        </div>
+        <p class="report-footnote">
+          报告保存在本机，已结束报告保留 30 天、最多 200
+          份，并限制总存储量。清除对应记录时同步清理报告。升级前的下载没有历史曲线。
+        </p>
+      </div>
+    </main>
+    <div id="reportToast" class="toast" hidden role="status"></div>
+  </body>
+</html>

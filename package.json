@@ -1,0 +1,45 @@
+{
+  "name": "nivra",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --import ./tests/setup-locale.mjs --test tests/*.test.js",
+    "test:e2e": "node tests/e2e.mjs",
+    "pack": "node scripts/pack.mjs",
+    "mcp": "node mcp/server.mjs",
+    "mcp:config": "node mcp/config.mjs",
+    "build:vendor": "node scripts/build-vendor.mjs",
+    "test:advanced": "node tests/e2e-advanced.mjs",
+    "format": "prettier --write \"*.js\" \"*.html\" style.css \"mcp/*.mjs\" \"scripts/*.mjs\" \"tests/*.{js,mjs}\" \"*.json\"",
+    "test:workflow": "node tests/e2e-workflow.mjs",
+    "test:classification": "node tests/e2e-classification.mjs",
+    "test:popup-menu": "node tests/e2e-popup-menu.mjs",
+    "test:downloaders": "node tests/e2e-downloaders.mjs",
+    "test:states": "node tests/e2e-states.mjs",
+    "test:reports": "node tests/e2e-reports.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
+    "test:details": "node tests/e2e-details.mjs",
+    "test:usability": "node tests/e2e-usability.mjs",
+    "test:i18n": "node tests/e2e-i18n.mjs"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.3.1",
+    "esbuild": "0.28.2",
+    "playwright": "1.58.2",
+    "prettier": "3.6.2"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.3.1",
+    "fflate": "0.8.3",
+    "jsep": "1.6.0",
+    "moment": "2.31.0",
+    "zod": "4.6.7"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hibrielle/nivra.git"
+  },
+  "homepage": "https://hibrielle.github.io/nivra/"
+}

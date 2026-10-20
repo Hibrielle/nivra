@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nivra · 下载管理器</title>
+    <link rel="icon" href="icons/icon48.png" />
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="manager-layout.css" />
+    <script type="module" src="boot.js"></script>
+  </head>
+  <body class="manager-app">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#all">
+          <img class="product-mark" src="icons/brand.svg" width="32" height="32" alt="" />
+          <span>Nivra<span class="brand-sub">下载管理器</span></span>
+        </a>
+        <div class="section-label">下载空间</div>
+        <nav aria-label="下载分类" id="navigation"></nav>
+        <div class="sidebar-divider"></div>
+        <a class="nav-item" id="rulesNav" href="#rules"
+          ><span data-icon="rules"></span>归档规则<span id="ruleCount" class="nav-count"></span
+        ></a>
+        <div class="sidebar-bottom">
+          <div class="automation-panel">
+            <div class="row between">
+              <span>自动归档</span
+              ><button
+                id="autoToggle"
+                class="switch"
+                role="switch"
+                aria-label="自动归档"
+                aria-checked="true"
+              >
+                <span></span>
+              </button>
+            </div>
+            <p id="autoHint">新下载自动放入对应目录</p>
+          </div>
+          <div class="sidebar-footer">
+            <span><span data-icon="shield"></span>本机优先</span
+            ><button
+              class="icon-button"
+              id="themeToggle"
+              data-theme-toggle
+              aria-label="切换深浅主题"
+              title="切换深浅主题"
+            >
+              <span data-icon="moon"></span>
+            </button>
+          </div>
+        </div>
+      </aside>
+      <main>
+        <header class="topbar">
+          <div class="manager-title">
+            <h1 id="pageTitle">所有任务</h1>
+            <span id="breadcrumbCurrent" hidden>所有任务</span>
+          </div>
+          <label class="search"
+            ><span data-icon="search"></span
+            ><input
+              id="search"
+              type="search"
+              placeholder="搜索文件、网址、备注"
+              aria-label="搜索文件、来源或目录"
+              autocomplete="off"
+            /><kbd>/</kbd></label
+          ><button class="button" id="addRule"><span data-icon="rules"></span>新建规则</button
+          ><span class="version" id="appVersion"></span>
+        </header>
+        <div class="main-content">
+          <div class="page-heading"><p id="pageDescription"></p></div>
+          <div id="loadError" class="notice error-notice" hidden role="alert"></div>
+          <div class="list-toolbar"><span id="listLabel">0 个任务</span></div>
+          <section id="downloadsView" aria-label="下载列表">
+            <div class="task-workspace">
+              <div id="downloadList" tabindex="-1"></div>
+              <aside id="detailDialog" class="task-inspector" aria-label="任务详情">
+                <div id="detailContent"></div>
+              </aside>
+            </div>
+          </section>
+          <section id="featureView" hidden></section>
+          <section id="rulesView" aria-label="归档规则" hidden>
+            <div class="rule-onboarding">
+              <div>
+                <h2>配一次，之后自动整理</h2>
+                <p>选文件类型，填保存目录，看看右边的结果就能保存。专门的规则放在通用分类前面。</p>
+              </div>
+              <button id="openRuleGuide" class="text-button">
+                配置示例<span data-icon="arrow"></span>
+              </button>
+            </div>
+            <div class="rule-tools" aria-label="规则工具">
+              <button id="openTemplates" class="button">
+                <span data-icon="plus"></span>选用模板</button
+              ><button id="openLab" class="button"><span data-icon="play"></span>测试规则</button
+              ><button id="openImport" class="button">
+                <span data-icon="download"></span>导入 / AI 配置</button
+              ><button id="exportRules" class="button">导出规则</button
+              ><button id="exportRegExp" class="button">导出 RegExp 格式</button
+              ><button id="undoRules" class="text-button" disabled>撤销上次修改</button>
+            </div>
+            <div class="notice">
+              <span data-icon="info"></span
+              ><span id="ruleOrderHint"
+                >从上往下看，按第一条符合条件的规则保存。同一条规则里的条件都要满足。</span
+              >
+            </div>
+            <div id="ruleList" class="rule-list"></div>
+          </section>
+          <footer class="content-footer">
+            <span id="footerText">单击选择 · ⌘/Ctrl 多选 · Shift 连选 · 双击打开文件</span
+            ><button class="text-button" id="howItWorks">
+              归档如何工作<span data-icon="arrow"></span>
+            </button>
+          </footer>
+        </div>
+      </main>
+    </div>
+    <dialog id="taskDialog" class="modal">
+      <form id="newTaskForm">
+        <div class="modal-heading">
+          <h2>新建下载任务</h2>
+          <button
+            class="icon-button"
+            type="button"
+            data-close="taskDialog"
+            aria-label="关闭新建任务"
+          >
+            <span data-icon="close"></span>
+          </button>
+        </div>
+        <label class="field"
+          >下载地址<textarea
+            id="taskUrls"
+            rows="4"
+            required
+            maxlength="256000"
+            placeholder="粘贴 HTTP(S) 地址，每行一个"
+          ></textarea>
+        </label>
+        <details>
+          <summary>命名与批量范围</summary>
+          <label class="field"
+            >本批保存路径<input
+              id="taskTemplate"
+              placeholder="留空按归档规则；例如 项目/{num:3}_{filename}"
+          /></label>
+          <p class="field-hint">
+            支持文件编号范围，例如 report-[001:020].pdf。填写路径时会自动加上设置中的归档子目录。
+          </p>
+        </details>
+        <p id="newTaskError" class="form-error" role="alert"></p>
+        <div class="modal-footer">
+          <span id="taskQueueHint" class="field-hint"></span><span class="spacer"></span
+          ><button class="button" type="button" data-close="taskDialog">取消</button
+          ><button id="submitTask" class="button primary" type="submit">开始下载</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="ruleDialog" class="modal">
+      <form id="ruleForm">
+        <div class="modal-heading">
+          <div>
+            <p class="eyebrow">让规则替你整理</p>
+            <h2 id="ruleDialogTitle">新建归档规则</h2>
+          </div>
+          <button
+            class="icon-button"
+            type="button"
+            data-close="ruleDialog"
+            aria-label="关闭规则编辑"
+          >
+            <span data-icon="close"></span>
+          </button>
+        </div>
+        <input type="hidden" name="id" /><input type="hidden" name="enabled" value="true" />
+        <div class="rule-editor-body">
+          <div class="rule-fields">
+            <label class="field"
+              >规则名称<input name="name" required maxlength="60" placeholder="例如：工作文档"
+            /></label>
+            <div class="form-section">
+              <h3><span class="step-number">1</span>哪些文件</h3>
+              <label class="field"
+                >文件类型<select id="ruleFileType">
+                  <option value="">自定义后缀</option>
+                </select></label
+              >
+              <label class="field"
+                >后缀<input name="extensions" placeholder="pdf, docx, xlsx" maxlength="1000" /><span
+                  class="field-hint"
+                  >逗号分隔，不区分大小写。</span
+                ></label
+              >
+              <details id="ruleScope">
+                <summary>限定网站或文件名（可选）</summary>
+                <div class="form-grid">
+                  <label class="field"
+                    >来源或下载域名<input
+                      name="domain"
+                      placeholder="example.com"
+                      maxlength="253"
+                    /><span class="field-hint">包含子域名，使用浏览器提供的来源信息。</span></label
+                  ><label class="field"
+                    >文件名包含<input name="keyword" placeholder="例如：周报" maxlength="512"
+                  /></label>
+                </div>
+              </details>
+              <details id="ruleAdvancedMatch">
+                <summary>高级匹配：正则与表达式</summary>
+                <div class="form-grid">
+                  <label class="field"
+                    >文件名正则<input
+                      name="regex"
+                      placeholder="^(report|invoice)-(\d+)\.pdf$"
+                      maxlength="2048" /></label
+                  ><label class="field"
+                    >MIME 正则<input name="mime" placeholder="^application/pdf$" maxlength="2048"
+                  /></label>
+                </div>
+                <label class="field"
+                  >下载 URL 正则<input
+                    name="urlRegex"
+                    maxlength="2048"
+                    placeholder="完整地址，也可提取捕获组"
+                /></label>
+                <label class="field"
+                  >最终 URL 正则<input
+                    name="finalUrlRegex"
+                    maxlength="2048"
+                    placeholder="跳转后的下载地址"
+                /></label>
+                <label class="field"
+                  >来源 URL 正则<input name="referrerRegex" maxlength="2048"
+                /></label>
+                <label class="field"
+                  >活动标签页 URL 正则<input name="tabUrlRegex" maxlength="2048" /><span
+                    class="field-hint"
+                    >表示下载触发时的活动标签页，可能与实际来源不同。</span
+                  ></label
+                >
+                <div class="form-grid">
+                  <label class="field"
+                    >正则标记<input name="regexFlags" value="i" maxlength="4" /><span
+                      class="field-hint"
+                      >i 忽略大小写 · m 多行 · s 点号匹配换行 · u Unicode</span
+                    ></label
+                  ><label class="field"
+                    >引用名称<input name="reference" maxlength="60" placeholder="例如 r_docs"
+                  /></label>
+                </div>
+                <label class="field"
+                  >Chrono 条件表达式<textarea
+                    name="condition"
+                    rows="2"
+                    maxlength="4096"
+                    placeholder='*ext*.is("pdf|docx") &amp;&amp; *size* &lt; mb(20)'
+                  ></textarea
+                  ><span class="field-hint"
+                    >支持逻辑、比较、扩展名组和规则引用；不执行 JavaScript。</span
+                  ></label
+                >
+                <label class="field"
+                  >用作下载筛选器<select name="asFilter">
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                  </select></label
+                >
+              </details>
+            </div>
+            <div class="form-section">
+              <h3><span class="step-number">2</span>保存到哪里</h3>
+              <label class="field"
+                >保存目录
+                <div class="path-input">
+                  <span data-icon="folder"></span
+                  ><input name="folder" placeholder="例如：工作/文档" maxlength="1024" />
+                </div>
+                <span class="field-hint"
+                  >放在 Chrome 的下载文件夹里；如果设置过归档子目录，也会自动加上。</span
+                ></label
+              >
+              <label class="check-field"
+                ><input type="checkbox" id="ruleByMonth" />按月建子目录</label
+              >
+              <details id="ruleAdvancedSave">
+                <summary>命名、同名处理与其他动作</summary>
+                <label class="field"
+                  >符合条件后怎么保存<select name="action">
+                    <option value="archive">按指定目录与名称保存</option>
+                    <option value="keep">保留浏览器默认位置（排除规则）</option>
+                  </select></label
+                >
+                <label class="field"
+                  >文件名模板<input
+                    name="filenameTemplate"
+                    value="{filename}"
+                    maxlength="1024"
+                  /><span class="field-hint"
+                    >例如 {name}.{ext}、{num:3}_{filename}、${filename:1}.pdf</span
+                  ></label
+                >
+                <label class="field"
+                  >完整路径模板<input
+                    name="pathTemplate"
+                    maxlength="1024"
+                    placeholder="项目/${url:1}/${date:YYYY-MM}/${filename}"
+                  /><span class="field-hint"
+                    >填写后优先于上方目录和文件名模板，也接受 RegExp 的 ${变量} 和 Chrono 的
+                    *变量*。</span
+                  ></label
+                ><label class="field"
+                  >完成后<select name="postAction">
+                    <option value="none">不操作</option>
+                    <option value="reveal">在文件夹中显示</option>
+                  </select></label
+                >
+                <label class="field"
+                  >遇到同名文件<select name="conflictAction">
+                    <option value="uniquify">自动编号</option>
+                    <option value="prompt">由浏览器询问</option>
+                    <option value="overwrite">覆盖同名文件（保存时确认）</option>
+                  </select></label
+                >
+              </details>
+            </div>
+          </div>
+          <div class="preview-box rule-preview-panel">
+            <div class="row between">
+              <strong>文件将保存到</strong><span class="mini-label">实时预览</span>
+            </div>
+            <p id="ruleSampleName" class="field-hint"></p>
+            <div id="rulePreview" class="rule-preview" role="status"></div>
+            <details id="ruleSampleOptions">
+              <summary>更换示例文件</summary>
+              <div class="form-grid">
+                <label class="field"
+                  >示例文件名<input
+                    id="sampleFilename"
+                    value="report.pdf"
+                    aria-label="示例文件名" /></label
+                ><label class="field"
+                  >示例来源网址<input
+                    id="sampleSource"
+                    value="https://example.com/report.pdf"
+                    aria-label="示例来源网址"
+                /></label>
+              </div>
+            </details>
+            <p class="field-hint">保存后，之后下载的文件会按这个位置存放。</p>
+          </div>
+        </div>
+        <p id="formError" class="form-error" role="alert"></p>
+        <div class="modal-footer">
+          <button class="text-button danger" id="deleteRule" type="button" hidden>删除规则</button>
+          <div class="spacer"></div>
+          <button class="button" type="button" data-close="ruleDialog">取消</button
+          ><button class="button primary" type="submit" id="saveRule">保存规则</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="templateDialog" class="modal workbench-modal">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">从常用场景开始</p>
+          <h2>选一个归档模板</h2>
+        </div>
+        <button class="icon-button" data-close="templateDialog" aria-label="关闭模板">
+          <span data-icon="close"></span>
+        </button>
+      </div>
+      <p class="dialog-description">选中后可以继续修改，保存后用于之后的新下载。</p>
+      <label class="field"
+        >搜索场景或文件格式<input
+          id="templateSearch"
+          type="search"
+          placeholder="例如 字体、woff2、发票、日期"
+      /></label>
+      <div id="templateList" class="template-grid"></div>
+    </dialog>
+    <dialog id="ruleGuideDialog" class="modal help-modal">
+      <div class="modal-heading">
+        <h2>三步配好一条规则</h2>
+        <button class="icon-button" data-close="ruleGuideDialog" aria-label="关闭配置示例">
+          <span data-icon="close"></span>
+        </button>
+      </div>
+      <div class="help-step">
+        <span class="step-number">1</span>
+        <div>
+          <h3>选出文件</h3>
+          <p>
+            例如：扩展名填 <code>pdf</code>，文件名包含填
+            <code>发票</code>。这两个条件同时满足才归档。
+          </p>
+        </div>
+      </div>
+      <div class="help-step">
+        <span class="step-number">2</span>
+        <div>
+          <h3>指定目标子目录</h3>
+          <p>
+            填写
+            <code>票据/{year}-{month}</code
+            >，文件会保存在默认下载目录的「票据/年-月」下。原文件名保留，同名自动编号。
+          </p>
+        </div>
+      </div>
+      <div class="help-step">
+        <span class="step-number">3</span>
+        <div>
+          <h3>先看看会放在哪里</h3>
+          <p>
+            输入
+            <code>出行发票.pdf</code>
+            看看为什么会用这条规则。把发票规则排在通用「文档」规则之前。保存只影响之后的下载。
+          </p>
+        </div>
+      </div>
+      <button class="button primary full-width" data-use-template="invoice">
+        用“电子发票”模板开始
+      </button>
+    </dialog>
+    <dialog id="labDialog" class="modal workbench-modal">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">只看结果，不会下载或移动文件</p>
+          <h2>用一个文件试试规则</h2>
+        </div>
+        <button class="icon-button" data-close="labDialog" aria-label="关闭规则测试">
+          <span data-icon="close"></span>
+        </button>
+      </div>
+      <label class="field"
+        >用一个最近下载试试<select id="labRecord">
+          <option value="">手动输入示例</option>
+        </select></label
+      >
+      <div class="form-grid">
+        <label class="field"
+          >示例文件名<input id="labFilename" value="report.pdf" maxlength="255" /></label
+        ><label class="field">下载日期<input id="labDate" type="date" /></label>
+      </div>
+      <label class="field"
+        >下载网址<input id="labUrl" value="https://example.com/report.pdf" maxlength="4096"
+      /></label>
+      <details>
+        <summary>补充来源信息</summary>
+        <label class="field">MIME<input id="labMime" placeholder="application/pdf" /></label
+        ><label class="field">活动标签页网址<input id="labTabUrl" maxlength="4096" /></label
+        ><label class="field">页面标题<input id="labPageTitle" maxlength="4096" /></label
+        ><label class="field">文件大小（字节）<input id="labSize" type="number" value="-1" /></label
+        ><label class="field"
+          >跳转后的最终下载网址<input id="labFinalUrl" maxlength="4096" placeholder="可选" /></label
+        ><label class="field"
+          >来源页面网址（referrer）<input
+            id="labReferrer"
+            maxlength="4096"
+            placeholder="可选；浏览器不一定提供"
+        /></label>
+      </details>
+      <p id="labSourceHint" class="field-hint"></p>
+      <div id="labResult" class="lab-result" aria-live="polite"></div>
+      <div id="labTrace" class="trace-list"></div>
+    </dialog>
+    <dialog id="importDialog" class="modal workbench-modal">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">规则备份与 AI 配置</p>
+          <h2>导入归档规则</h2>
+        </div>
+        <button class="icon-button" data-close="importDialog" aria-label="关闭规则导入">
+          <span data-icon="close"></span>
+        </button>
+      </div>
+      <details class="ai-helper">
+        <summary>让 AI 帮我写规则</summary>
+        <p>
+          描述你的需求，复制提示词给 AI，再把返回的 JSON
+          粘贴到下方。提示词只包含你填写的需求和配置格式。
+        </p>
+        <label class="field"
+          >我希望如何整理<textarea
+            id="aiGoal"
+            rows="2"
+            maxlength="4000"
+            placeholder="例如：APK 存到安装包/Android，名字含发票的 PDF 按月放到票据"
+          ></textarea></label
+        ><button id="copyAiPrompt" class="button">复制 AI 配置提示词</button
+        ><textarea
+          id="aiPromptOutput"
+          class="code-input"
+          aria-label="AI 配置提示词"
+          rows="5"
+          readonly
+          hidden
+        ></textarea>
+        <details>
+          <summary>MCP 配置助手</summary>
+          <p>
+            源码仓库提供本地 MCP，支持规则格式、模板、校验、试跑和配置包生成。在仓库运行
+            <code>npm run mcp:config</code> 获取客户端配置。结果仍需在此预览后导入。
+          </p>
+        </details>
+      </details>
+      <div class="import-options">
+        <button id="chooseImportFile" class="button">选择 JSON 文件</button
+        ><input id="importFile" type="file" accept=".json,application/json" hidden /><label
+          class="field"
+          >导入位置<select id="importPosition">
+            <option value="first">放在最前，优先匹配</option>
+            <option value="last">放在最后，作为补充</option>
+          </select></label
+        >
+      </div>
+      <label class="field"
+        >规则 JSON<textarea
+          id="importText"
+          class="code-input"
+          rows="8"
+          maxlength="131072"
+          spellcheck="false"
+          placeholder='{"format":"nivra-rules","version":1,"rules":[…]}'
+        ></textarea>
+      </label>
+      <p class="field-hint import-hint">
+        支持 Nivra 配置包、RegExp 原生规则 JSON 和 Chrono
+        规则数组。保留现有规则，跳过内容相同的规则；支持最大 128 KiB 的配置文件。
+      </p>
+      <div id="importPreview" class="import-preview" aria-live="polite"></div>
+      <p id="importError" class="form-error" role="alert"></p>
+      <div class="modal-footer">
+        <button class="button" id="previewImport">校验并预览</button>
+        <div class="spacer"></div>
+        <button class="button" data-close="importDialog">取消</button
+        ><button class="button primary" id="applyImport" disabled>应用导入</button>
+      </div>
+    </dialog>
+    <dialog id="helpDialog" class="modal help-modal">
+      <div class="modal-heading">
+        <h2>下载之后，一切有序</h2>
+        <button class="icon-button" data-close="helpDialog" aria-label="关闭说明">
+          <span data-icon="close"></span>
+        </button>
+      </div>
+      <div class="help-step">
+        <span class="step-number">1</span>
+        <div>
+          <h3>按平时的方式下载</h3>
+          <p>插件只处理启用后的新下载，不扫描或移动已有文件。</p>
+        </div>
+      </div>
+      <div class="help-step">
+        <span class="step-number">2</span>
+        <div>
+          <h3>按规则决定保存目录</h3>
+          <p>
+            在 Chrome
+            的默认下载目录中创建子目录。若开启“下载前询问保存位置”，浏览器仍可能弹出保存对话框。
+          </p>
+        </div>
+      </div>
+      <div class="help-step">
+        <span class="step-number">3</span>
+        <div>
+          <h3>从这里找到实际文件</h3>
+          <p>
+            只有下载完成且实际目录符合规则，才显示“已归档”。手动另存为或其他下载插件可能改变目标位置。
+          </p>
+        </div>
+      </div>
+      <div class="notice">
+        <span data-icon="shield"></span
+        ><span
+          >规则和最近 500
+          条记录保存在本机；可手动备份规则到浏览器同步存储。记录不保存来源网址的查询参数。待下载队列和当前资源列表会保留下载所需的完整链接。</span
+        >
+      </div>
+    </dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+  </body>
+</html>

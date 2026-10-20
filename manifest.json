@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "1.0.0",
+  "description": "__MSG_extensionDescription__",
+  "minimum_chrome_version": "127",
+  "permissions": [
+    "downloads",
+    "storage",
+    "offscreen",
+    "scripting",
+    "contextMenus",
+    "alarms",
+    "webRequest",
+    "downloads.ui",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "__MSG_extensionActionTitle__",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "manager.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none';"
+  },
+  "optional_permissions": ["notifications", "downloads.open"],
+  "optional_host_permissions": ["file:///*"],
+  "commands": {
+    "open-manager": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "__MSG_openManager__"
+    },
+    "scan-page": {
+      "description": "__MSG_scanPage__"
+    }
+  },
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "default_locale": "en"
+}

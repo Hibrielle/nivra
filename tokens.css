@@ -1,0 +1,160 @@
+/*
+ * codex-ui-style: design tokens
+ * Drop into your global CSS, then build everything via var(--token).
+ * Theming: switch with [data-theme="dark"] on <html>, OR rely on the
+ * @media (prefers-color-scheme: dark) block at the bottom — both work.
+ */
+
+:root {
+  /* === Color: light (default) === */
+  --bg-base: #ffffff;
+  --bg-subtle: #f9f9f9;          /* sidebar, page subtle bg */
+  --bg-elevated: #ffffff;
+  --surface-hover: #ececec;
+  --surface-active: #e3e3e3;
+  --surface-input: #f4f4f4;       /* composer + code-block bg */
+  --bubble-user: #f4f4f4;
+  --bubble-assistant: transparent;
+  --overlay: rgba(0, 0, 0, 0.4);
+
+  --text-primary: #0d0d0d;
+  --text-secondary: #5d5d5d;
+  --text-muted: #8e8e8e;          /* timestamps, hints, section labels */
+  --text-inverse: #ffffff;
+
+  --border-subtle: #ededed;
+  --border-default: #e3e3e3;
+  --border-strong: #cdcdcd;
+  --border-focus: #0d0d0d;
+
+  /* status — used sparingly; never as a primary action color */
+  --status-success: #10a37f;
+  --status-error: #ef4146;
+  --status-warning: #d4a72c;
+
+  /* === Type === */
+  --font-sans: "Söhne", ui-sans-serif, system-ui, -apple-system,
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Tiempos Headline", "Tiempos Text", ui-serif,
+                Georgia, "Times New Roman", Times, serif;
+  --font-mono: "Söhne Mono", ui-monospace, "SF Mono", Menlo,
+               Monaco, Consolas, "Liberation Mono", monospace;
+
+  --fs-xs:   0.75rem;     /* 12 */
+  --fs-sm:   0.8125rem;   /* 13 */
+  --fs-base: 0.9375rem;   /* 15 — body */
+  --fs-md:   1rem;        /* 16 */
+  --fs-lg:   1.125rem;    /* 18 */
+  --fs-xl:   1.375rem;    /* 22 */
+  --fs-2xl:  1.875rem;    /* 30 — empty-state hero */
+  --fs-3xl:  2.25rem;     /* 36 */
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-normal: 1.55;
+  --lh-relaxed: 1.75;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --tracking-tight: -0.01em;      /* on titles ≥ 16px (Söhne fallback) */
+  --tracking-normal: 0;
+
+  /* === Spacing (4px base scale) === */
+  --sp-0: 0;
+  --sp-1: 0.25rem;   /* 4  */
+  --sp-2: 0.5rem;    /* 8  */
+  --sp-3: 0.75rem;   /* 12 */
+  --sp-4: 1rem;      /* 16 */
+  --sp-5: 1.25rem;   /* 20 */
+  --sp-6: 1.5rem;    /* 24 */
+  --sp-8: 2rem;      /* 32 */
+  --sp-10: 2.5rem;   /* 40 */
+  --sp-12: 3rem;     /* 48 */
+  --sp-16: 4rem;     /* 64 */
+
+  /* === Radius === */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 26px;             /* composer minimum */
+  --radius-pill: 9999px;
+
+  /* === Shadow (use sparingly; product looks flat) === */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.12);
+  --shadow-focus: 0 0 0 2px rgba(13, 13, 13, 0.15);
+
+  /* === Motion === */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 120ms;              /* hover, focus */
+  --dur-base: 180ms;              /* theme switch, panel */
+  --dur-slow: 280ms;              /* upper bound; rarely needed */
+}
+
+/* === Color: dark (explicit override via [data-theme="dark"]) === */
+[data-theme="dark"] {
+  --bg-base: #212121;             /* canonical ChatGPT dark — never #000 */
+  --bg-subtle: #171717;           /* sidebar, deeper than base */
+  --bg-elevated: #2f2f2f;
+  --surface-hover: #2f2f2f;
+  --surface-active: #3a3a3a;
+  --surface-input: #2f2f2f;
+  --bubble-user: #323232;
+  --bubble-assistant: transparent;
+  --overlay: rgba(0, 0, 0, 0.6);
+
+  --text-primary: #ececec;
+  --text-secondary: #b4b4b4;
+  --text-muted: #8e8e8e;
+  --text-inverse: #0d0d0d;
+
+  --border-subtle: #2f2f2f;
+  --border-default: #3a3a3a;
+  --border-strong: #4d4d4d;
+  --border-focus: #ececec;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.6);
+  --shadow-focus: 0 0 0 2px rgba(236, 236, 236, 0.2);
+}
+
+/* === Auto: match system preference when theme is not explicitly set === */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-base: #212121;
+    --bg-subtle: #171717;
+    --bg-elevated: #2f2f2f;
+    --surface-hover: #2f2f2f;
+    --surface-active: #3a3a3a;
+    --surface-input: #2f2f2f;
+    --bubble-user: #323232;
+    --bubble-assistant: transparent;
+    --overlay: rgba(0, 0, 0, 0.6);
+
+    --text-primary: #ececec;
+    --text-secondary: #b4b4b4;
+    --text-muted: #8e8e8e;
+    --text-inverse: #0d0d0d;
+
+    --border-subtle: #2f2f2f;
+    --border-default: #3a3a3a;
+    --border-strong: #4d4d4d;
+    --border-focus: #ececec;
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.6);
+    --shadow-focus: 0 0 0 2px rgba(236, 236, 236, 0.2);
+  }
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Nivra promotional tile</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 440px;
+        height: 280px;
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        background: #202326;
+        color: #f9f9f9;
+        font-family: system-ui, sans-serif;
+        display: grid;
+        place-items: center;
+      }
+      .mark {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        position: relative;
+      }
+      img {
+        width: 112px;
+        height: 112px;
+      }
+      strong {
+        font-size: 47px;
+        font-weight: 550;
+        letter-spacing: -1.6px;
+      }
+      .line {
+        position: absolute;
+        border: 1px solid #ffffff0d;
+        border-radius: 36px;
+        width: 380px;
+        height: 204px;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #8eaaa8;
+        position: absolute;
+        right: 33px;
+        bottom: 37px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="line"></div>
+    <div class="mark"><img src="../icons/brand.svg" alt="" /><strong>Nivra</strong></div>
+    <span class="dot"></span>
+  </body>
+</html>
